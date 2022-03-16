@@ -1,0 +1,144 @@
+{% extends "web_app/base.html" %}
+{% load static %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <!--- offcanvas trigger -->
+    <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+      aria-controls="offcanvasExample">
+      <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
+    </button>
+    <!--- offcanvas trigger -->
+    <a class="navbar-brand fw-bold text-uppercase me-auto text-warning" href="{% url 'home' %}">Employee Management
+      System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex ms-auto" method="get" action="{% url 'employee-search' %}">
+        {% csrf_token %}
+        <div class="input-group my-3 my-lg-0">
+          <input type="text" class="form-control" placeholder="Employee name" aria-label="Employee name"
+            aria-describedby="basic-addon2" name="query">
+          <button class="btn btn-secondary" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+<!--- Navbar -->
+
+<!--- offcanvas -->
+<div class="offcanvas offcanvas-start bg-dark text-white sidebar-nav" tabindex="-1" id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-body p-0">
+    <nav class="navbar-dark">
+      <ul class="navbar-nav">
+        <li>
+          <div class="text-muted small fw-bold text-uppercase px-3">
+            CORE
+          </div>
+        </li>
+        <li>
+          <a class="nav-link px-3 active" href="{% url 'home' %}">
+            <span class="me-2">
+              <i class="bi bi-speedometer2"></i>
+            </span>
+            <span class="text-success">Dashboard</span>
+          </a>
+        </li>
+        <li class="my-4">
+          <hr class="dropdown-divider" />
+        </li>
+        <li>
+          <div class="text-muted small fw-bold text-uppercase px-3">
+            INTERFACE
+          </div>
+        </li>
+        <li>
+          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <span class="me-2"><i class="bi bi-person-workspace"></i></span>
+            <span class="text-primary active">Employee Manager</span>
+            <span class="right-icon ms-auto"><i class="bi bi-chevron-down"></i></span>
+          </a>
+          <div class="collapse" id="collapseExample">
+            <div>
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <a href="{% url 'employee_insert' %}" class="nav-link px-3">
+                    <span class="me-2">
+                      <i class="bi bi-info-square"></i>
+                    </span>
+                    <span>Employee Register</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+  </div>
+  </li>
+  </ul>
+  </nav>
+</div>
+</div>
+<!--- offcanvas -->
+
+<!--- content -->
+<main class="mt-5 pt-3">
+  <div class="container-fluid">
+    <!--Employee Table-->
+    <div class="row">
+      <div class="table-responsive bg-white my-3" style="border-radius: 5px;">
+        <div class="title fw-bold fs-3">
+          Employee List
+        </div>
+        <table class="table table-striped">
+          <thead class="border-bottom font-weight-bold">
+            <tr>
+              <td>Employee Code</td>
+              <td>Full Name</td>
+              <td>Mobile</td>
+              <td>Email</td>
+              <td>Position</td>
+              <td>Gender</td>
+              <td>
+                <a href="{% url 'employee_insert' %}" class="btn btn-outline-success">
+                  <i class="bi bi-plus-square"></i> Add New
+                </a>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for employee in employee_list %}
+            <tr>
+              <td>{{employee.emp_code}}</td>
+              <td>{{employee.fullname}}</td>
+              <td>{{employee.mobile}}</td>
+              <td>{{employee.email}}</td>
+              <td>{{employee.position}}</td>
+              <td>{{employee.gender}}</td>
+              <td>
+                <a href="{% url 'employee_update' employee.id %}" class="btn text-secondary px-0">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{% url 'employee_delete' employee.id %}" method="post" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn px-0">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
