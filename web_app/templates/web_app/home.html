@@ -91,6 +91,59 @@
 <!--- content -->
 <main class="mt-5 pt-3">
   <div class="container-fluid">
+    <div class="title fw-bold fs-3">
+      Dashboard
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <div class="card bg-primary text-white h-100">
+          <div class="card-body py-5">
+            <h5>Total Employees</h5>
+            <p class="card-text">{{count}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card bg-warning text-dark h-100">
+          <div class="card-body py-5">
+            <h5>Total Emails Available</h5>
+            <p class="card-text">{{emails}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card bg-success text-white h-100">
+          <div class="card-body py-5">
+            <h5>Total Mobile Numbers Available </h5>
+            <p class="card-text">{{mobile}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card bg-danger text-white h-100">
+          <div class="card-body py-5">
+            <h5>Total Managerial Positions</h5>
+            <p class="card-text">{{position}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card bg-secondary text-white h-100">
+          <div class="card-body py-5">
+            <h5>Female Employees </h5>
+            <p class="card-text">{{gender_female}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white h-100">
+          <div class="card-body py-5">
+            <h5>Male Employees </h5>
+            <p class="card-text">{{gender_male}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <!--Employee Table-->
     <div class="row">
       <div class="table-responsive bg-white my-3" style="border-radius: 5px;">

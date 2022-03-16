@@ -8,7 +8,15 @@ import psycopg2 as pg
 load_dotenv()
 
 def home(request):
-    context = {'employee_list': Employee.objects.all()}
+    context = {
+        'employee_list': Employee.objects.all(), 
+        'count': Employee.objects.count(),
+        'emails': Employee.objects.filter(email__contains='@').count(),
+        'mobile': Employee.objects.filter(mobile__contains='+').count(),
+        'position': Employee.objects.filter(position__title__icontains='Manager').count(),
+        'gender_male': Employee.objects.filter(gender='1').count(),
+        'gender_female': Employee.objects.filter(gender='2').count()
+    }
     return render(request, 'web_app/home.html', context)
 
 def employee_form(request, id=0):
