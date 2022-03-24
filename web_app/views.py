@@ -38,7 +38,6 @@ def employee_form(request, id=0):
         if form.is_valid():
             form.save()
         return redirect('home')
-       
 
 def employee_delete(request, id):
     employee = Employee.objects.get(pk=id)

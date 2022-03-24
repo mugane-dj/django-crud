@@ -32,9 +32,64 @@
     </div>
   </nav>
   <!--- Navbar -->
+  <!--- offcanvas -->
+  <div class="offcanvas offcanvas-start bg-dark text-white sidebar-nav" tabindex="-1" id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-body p-0">
+      <nav class="navbar-dark">
+        <ul class="navbar-nav">
+          <li>
+            <div class="text-muted small fw-bold text-uppercase px-3">
+              CORE
+            </div>
+          </li>
+          <li>
+            <a class="nav-link px-3 active" href="{% url 'home' %}">
+              <span class="me-2">
+                <i class="fa-solid fa-chart-line"></i>
+              </span>
+              <span class="text-success">Dashboard</span>
+            </a>
+          </li>
+          <li class="my-4">
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <div class="text-muted small fw-bold text-uppercase px-3">
+              INTERFACE
+            </div>
+          </li>
+          <li>
+            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              <span class="me-2"><i class="bi bi-person-workspace"></i></span>
+              <span class="text-primary active">Employee Manager</span>
+              <span class="right-icon ms-auto"><i class="bi bi-chevron-down"></i></span>
+            </a>
+            <div class="collapse" id="collapseExample">
+              <div>
+                <ul class="navbar-nav ps-3">
+                  <li>
+                    <a href="{% url 'employee_insert' %}" class="nav-link px-3">
+                      <span class="me-2">
+                        <i class="fa-solid fa-id-card"></i>
+                      </span>
+                      <span>Employee Register</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+    </div>
+    </li>
+    </ul>
+    </nav>
+  </div>
+  </div>
+  <!--- offcanvas -->
 
   <!--- form section -->
-  <section class="container pt-5 mt-5" style="border-radius: 5px; background-color: aquamarine;">
+  <section class="container pt-5 mt-3" style="border-radius: 5px; background-color: rgb(156, 156, 156);">
     <div class="fw-bold fs-3 mb-3 text-center">
       <span>
         Employee Register
@@ -54,6 +109,14 @@
         </div>
         <div class="col-md-4">
           {{ form.position|as_crispy_field }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          {{ form.base_pay|as_crispy_field }}
+        </div>
+        <div class="col-md-4">
+          {{ form.bonus|as_crispy_field }}
         </div>
       </div>
       <div class="row">

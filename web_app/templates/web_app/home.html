@@ -10,7 +10,7 @@
       <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
     </button>
     <!--- offcanvas trigger -->
-    <a class="navbar-brand fw-bold text-uppercase me-auto text-warning" href="{% url 'home' %}">Employee Management
+    <a class="navbar-brand fw-bold text-uppercase me-auto" href="{% url 'home' %}">Employee Management
       System</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
         <li>
           <a class="nav-link px-3 active" href="{% url 'home' %}">
             <span class="me-2">
-              <i class="bi bi-speedometer2"></i>
+              <i class="fa-solid fa-chart-line"></i>
             </span>
             <span class="text-success">Dashboard</span>
           </a>
@@ -72,7 +72,7 @@
                 <li>
                   <a href="{% url 'employee_insert' %}" class="nav-link px-3">
                     <span class="me-2">
-                      <i class="bi bi-info-square"></i>
+                      <i class="fa-solid fa-id-card"></i>
                     </span>
                     <span>Employee Register</span>
                   </a>
@@ -95,7 +95,7 @@
       Dashboard
     </div>
     <div class="row">
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 mb-4">
         <div class="card bg-primary text-white h-100">
           <div class="card-body py-5">
             <h5>Total Employees</h5>
@@ -103,7 +103,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 mb-4">
         <div class="card bg-warning text-dark h-100">
           <div class="card-body py-5">
             <h5>Total Emails Available</h5>
@@ -111,7 +111,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 mb-4">
         <div class="card bg-success text-white h-100">
           <div class="card-body py-5">
             <h5>Total Mobile Numbers Available </h5>
@@ -119,7 +119,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 mb-4">
         <div class="card bg-danger text-white h-100">
           <div class="card-body py-5">
             <h5>Total Managerial Positions</h5>
@@ -127,7 +127,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 mb-4">
         <div class="card bg-secondary text-white h-100">
           <div class="card-body py-5">
             <h5>Female Employees </h5>
@@ -135,7 +135,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 mb-4">
         <div class="card bg-dark text-white h-100">
           <div class="card-body py-5">
             <h5>Male Employees </h5>
@@ -144,6 +144,8 @@
         </div>
       </div>
     </div>
+
+    <hr>
     <!--Employee Table-->
     <div class="row">
       <div class="table-responsive bg-white my-3" style="border-radius: 5px;">

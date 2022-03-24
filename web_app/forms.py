@@ -1,4 +1,4 @@
-from dataclasses import fields
+from dataclasses import field, fields
 from django import forms
 from .models import Employee
 
@@ -11,7 +11,9 @@ class EmployeeForm(forms.ModelForm):
         labels = {
             'fullname': 'Full Name',
             'emp_code': 'Employee Code',
-            'gender': 'Gender'
+            'gender': 'Gender',
+            'base_pay': 'Base Salary',
+            'bonus' : 'Bonus Pay'
         }
 
     def __init__(self, *args, **kwargs):
