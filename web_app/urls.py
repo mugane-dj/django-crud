@@ -1,9 +1,7 @@
 from django.urls import path
-from web_app.views import employee_form, employee_delete, employee_search
+from .views import home, chart_1
 
 urlpatterns = [
-    path('form/', employee_form, name='employee_insert'),
-    path('search/', employee_search, name='employee-search'),
-    path('<int:id>/', employee_form, name='employee_update'),
-    path('delete/<int:id>', employee_delete, name='employee_delete')
+    path('', home, name="home"),
+    path('chart_1/', chart_1, name="chart_1")
 ]

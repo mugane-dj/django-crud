@@ -1,4 +1,4 @@
-{% extends "web_app/base.html" %}
+{% extends "patients/base.html" %}
 {% load static %}
 {% block content %}
 
@@ -16,6 +16,18 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex ms-auto" method="get" action="{% url 'patient_search' %}">
+        {% csrf_token %}
+        <div class="input-group my-3 my-lg-0">
+          <input type="text" class="form-control" placeholder="Patient name" aria-label="Patient name"
+            aria-describedby="basic-addon2" name="query">
+          <button class="btn btn-secondary" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </nav>
 <!--- Navbar -->
@@ -32,7 +44,7 @@
           </div>
         </li>
         <li>
-          <a class="nav-link px-3 active" href="{% url 'employee_home' %}">
+          <a class="nav-link px-3 active" href="{% url 'patient_home' %}">
             <span class="me-2">
               <i class="fa-solid fa-chart-line"></i>
             </span>
@@ -51,63 +63,23 @@
           <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
             <span class="me-2"><i class="bi bi-person-workspace"></i></span>
-            <span class="text-primary active">Staff</span>
+            <span class="text-primary active">Patient Manager</span>
             <span class="right-icon ms-auto"><i class="bi bi-chevron-down"></i></span>
           </a>
           <div class="collapse" id="collapseExample">
             <div>
               <ul class="navbar-nav ps-3">
                 <li>
-                  <a href="{% url 'employee_home' %}" class="nav-link px-3">
+                  <a href="{% url 'patient_insert' %}" class="nav-link px-3">
                     <span class="me-2">
                       <i class="fa-solid fa-id-card"></i>
                     </span>
-                    <span>Employee Module</span>
+                    <span>Patient Register</span>
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
-          aria-expanded="false" aria-controls="collapseExample">
-          <span class="me-2"><i class="fa-solid fa-person-dots-from-line"></i></span>
-          <span class="text-primary active">Patient</span>
-          <span class="right-icon ms-auto"><i class="bi bi-chevron-down"></i></span>
-        </a>
-        <div class="collapse" id="collapseExample">
-          <div>
-            <ul class="navbar-nav ps-3">
-              <li>
-                <a href="{% url 'patient_home' %}" class="nav-link px-3">
-                  <span class="me-2">
-                    <i class="fa-solid fa-bed-pulse"></i>
-                  </span>
-                  <span>Patient Module</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
-        aria-expanded="false" aria-controls="collapseExample">
-        <span class="me-2"><i class="fa-solid fa-suitcase-medical"></i></span>
-        <span class="text-primary active">Pharmacy</span>
-        <span class="right-icon ms-auto"><i class="bi bi-chevron-down"></i></span>
-      </a>
-      <div class="collapse" id="collapseExample">
-        <div>
-          <ul class="navbar-nav ps-3">
-            <li>
-              <a href="{% url 'inventory_home' %}" class="nav-link px-3">
-                <span class="me-2">
-                  <i class="fa-solid fa-tablets"></i>
-                </span>
-                <span>Pharmacy Module</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
   </div>
   </li>
   </ul>
@@ -126,32 +98,78 @@
       <div class="col-md-4 mb-4">
         <div class="card bg-primary text-white h-100">
           <div class="card-body py-5">
-            <h5>Total Employees</h5>
-            <p class="card-text">{{employee_count}}</p>
+            <h5>Total Patients</h5>
+            <p class="card-text">{{count}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
-        <div class="card bg-warning text-dark h-100">
+        <div class="card bg-secondary text-white h-100">
           <div class="card-body py-5">
-            <h5>Total patients</h5>
-            <p class="card-text">{{patient_count}}</p>
+            <h5>Female Patients </h5>
+            <p class="card-text">{{gender_female}}</p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
-        <div class="card bg-success text-white h-100">
+        <div class="card bg-dark text-white h-100">
           <div class="card-body py-5">
-            <h5>Total Inventory</h5>
-            <p class="card-text">{{inventory_count}}</p>
+            <h5>Male Patients </h5>
+            <p class="card-text">{{gender_male}}</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 mb-6" id="myChart1"></div>
     </div>
 
+    <hr>
+    <!--Employee Table-->
+    <div class="row">
+      <div class="table-responsive bg-white my-3" style="border-radius: 5px;">
+        <div class="title fw-bold fs-3">
+          Patient List
+        </div>
+        <table class="table table-striped">
+          <thead class="border-bottom font-weight-bold">
+            <tr>
+              <td>Patient Code</td>
+              <td>Full Name</td>
+              <td>Mobile</td>
+              <td>Email</td>
+              <td>Blood Group</td>
+              <td>Gender</td>
+              <td>
+                <a href="{% url 'patient_insert' %}" class="btn btn-outline-success">
+                  <i class="bi bi-plus-square"></i> Add New
+                </a>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for patient in patient_list %}
+            <tr>
+              <td>{{patient.patient_code}}</td>
+              <td>{{patient.fullname}}</td>
+              <td>{{patient.mobile}}</td>
+              <td>{{patient.email}}</td>
+              <td>{{patient.blood_group}}</td>
+              <td>{{patient.gender}}</td>
+              <td>
+                <a href="{% url 'patient_update' patient.id %}" class="btn text-secondary px-0">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{% url 'patient_delete' patient.id %}" method="post" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn px-0">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </main>
 {% endblock content %}
