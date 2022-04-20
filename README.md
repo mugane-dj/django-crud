@@ -14,3 +14,5 @@ git clone https://github.com/mugane-dj/django-crud.git
 pip install -r requirements.txt
 python3 manage.py runserver
 ```
+## Note
+All data used in the system is dummy data
