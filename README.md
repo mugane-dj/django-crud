@@ -16,3 +16,6 @@ python3 manage.py runserver
 ```
 ## Note
 All data used in the system is dummy data
+
+## Live Link
+https://django-ems.herokuapp.com/
