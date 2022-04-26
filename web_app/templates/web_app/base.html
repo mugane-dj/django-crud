@@ -53,7 +53,6 @@
       type: 'GET',
       dataType: 'json',
       success: function (response) {
-        console.log('Response: ', response);
         for (var i in response) {
           var key = Object.keys(response[i])[0];
           var value = Object.values(response[i])[0];
@@ -70,7 +69,12 @@
       var chartData_1 = {
         "type": "bar",
         "title": {
-          "text": "Number of Patients Vs Employees"
+          "text": "Number of Patients Vs Employees",
+
+          "font-family": "open sans",
+          "font-size": "25px",
+          "offset-x": "10px",
+          "align": "left"
         },
         "scale-x": {
 
@@ -80,13 +84,15 @@
           "values": "0:10:1",
           "label": {
             "text": "Number of Individuals",
+            "font-color": "#8e99a9",
+            "font-size": "12px",
           }
         },
         "plot": {
           "animation": {
-            "delay": "100",
+            "delay": "1000",
             "effect": "4",
-            "method": "5",
+            "method": "3",
             "sequence": "1"
           }
         },
@@ -103,6 +109,92 @@
       });
     }
 
+  </script>
+  <script>
+    var chartState = {
+      'items': [],
+      'values': [],
+    }
+
+    var dataURL = '/chart_2/';
+
+    $.ajax({
+      url: dataURL,
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        for (var i in response) {
+          var key = Object.keys(response[i])[0];
+          var value = Object.values(response[i])[0];
+
+          chartState.items.push(key);
+          chartState.values.push(value);
+        }
+        console.log('State: ', chartState);
+        buildChart2();
+      }
+    });
+
+    function buildChart2() {
+      var sumValues = chartState.values.reduce((a, b) => a + b, 0);
+      var chartData_2 = {
+        type: "pie",
+        plot: {
+          borderColor: "#2B313B",
+          borderWidth: 5,
+          // slice: 90,
+          valueBox: {
+            placement: 'out',
+            text: '%t\n%npv%',
+            fontFamily: "Open Sans"
+          },
+          tooltip: {
+            fontSize: '18',
+            fontFamily: "Open Sans",
+            padding: "5 10",
+            text: "%npv%"
+          },
+          animation: {
+            effect: 2,
+            method: 5,
+            speed: 900,
+            sequence: 1,
+            delay: 1000
+          },
+        },
+
+        title: {
+          text: 'Inventory Items',
+          align: "left",
+          offsetX: 10,
+          fontSize: 25,
+          fontFamily: "Open Sans"
+        },
+        plotarea: {
+          margin: "20 0 0 0"
+        },
+        series: [{
+          values: [Math.floor((chartState.values[0] / sumValues) * 100)],
+          text: chartState.items[0],
+          backgroundColor: '#50ADF5',
+        },
+        {
+          values: [Math.floor((chartState.values[1] / sumValues) * 100)],
+          text: chartState.items[1],
+          backgroundColor: '#FF7965',
+        },
+        {
+          values: [Math.floor((chartState.values[2] / sumValues) * 100)],
+          text: chartState.items[2],
+          backgroundColor: '#6877e5'
+        }
+        ]
+      }
+      zingchart.render({
+        id: "myChart2",
+        data: chartData_2,
+      });
+    }
   </script>
 </body>
 
