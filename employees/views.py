@@ -4,6 +4,24 @@ from .forms import EmployeeForm
 from .models import Employee
 
 def home(request):
+    """
+    We're creating a dictionary called context, which contains all the data we want to pass to the
+    template. 
+    
+    The context dictionary contains the following keys:
+    
+    employee_list: This is a list of all the employees in the database.
+    count: This is the total number of employees in the database.
+    emails: This is the number of employees who have an email address.
+    mobile: This is the number of employees who have a mobile number.
+    position: This is the number of employees who have the word "manager" in their position title.
+    gender_male: This is the number of male employees.
+    gender_female: This is the number of female employees
+    
+    :param request: The request is a parameter that will be passed to all views by Django. It contains
+    metadata about the request, including the HTTP method
+    :return: The home function is returning the context variable which is a dictionary.
+    """
     context = {
         'employee_list': Employee.objects.all(), 
         'count': Employee.objects.count(),
@@ -16,7 +34,16 @@ def home(request):
     return render(request, 'employees/home.html', context)
 
 def employee_form(request, id=0):
-    # if id is 0 and its a get request, then it is a new employee being registered
+    """
+    If the request is a GET request, then we are either creating a new employee or editing an existing
+    employee. If the request is a POST request, then we are either creating a new employee or editing an
+    existing employee
+    
+    :param request: The request object is a Django object that contains metadata about the request sent
+    to the server
+    :param id: the id of the employee being edited, defaults to 0 (optional)
+    :return: The employee_form function is returning the employee_home page.
+    """
     if request.method == "GET":
         if id == 0:
             form = EmployeeForm()
@@ -24,7 +51,6 @@ def employee_form(request, id=0):
             employee = Employee.objects.get(pk=id)
             form = EmployeeForm(instance=employee)
         return render(request, 'employees/userform.html', {'form': form})
-    # if id is not 0 and its a post request, then it is an employee being edited
     else:
         if id == 0:
             form = EmployeeForm(request.POST)
@@ -36,12 +62,27 @@ def employee_form(request, id=0):
         return redirect('employee_home')
 
 def employee_delete(request, id):
+    """
+    Get the employee with the primary key of id, delete it, and then redirect to the employee_home page.
+    
+    :param request: The request is a parameter that is required for all views. It contains metadata
+    about the request, including the HTTP method
+    :param id: The primary key of the employee we want to delete
+    :return: The employee_delete function is returning the redirect function.
+    """
     employee = Employee.objects.get(pk=id)
     employee.delete()
     return redirect('employee_home')
 
 
 def employee_search(request):
+    """
+    If the request method is GET, then get the query from the request, and if the query exists, then
+    filter the employees by the query and return the filtered employees
+    
+    :param request: The request is an HttpRequest object. It contains metadata about the request
+    :return: The employee_search function is returning a render of the search_db.html page.
+    """
     if request.method == "GET":
         query = request.GET.get('query')
         if query:

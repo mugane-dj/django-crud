@@ -1,1 +1,1 @@
-web: gunicorn site_app.wsgi
+web: gunicorn api.wsgi --preload --timeout 10 --max-requests 1200 

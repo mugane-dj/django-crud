@@ -8,6 +8,7 @@ from djmoney.models.fields import MoneyField
 # Create your models here.
 
 
+# A Position is a title.
 class Position(models.Model):
     title = models.CharField(max_length=50)
 
